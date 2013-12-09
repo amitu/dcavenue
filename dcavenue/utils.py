@@ -13,7 +13,7 @@ def generate_order_id():
 
 
 def get_redirect_url(request):
-    url = "%s:%s" % (settings.DOMAIN, reverse("dcavenue-callback"))
+    url = "%s%s" % (settings.DOMAIN, reverse("dcavenue-callback"))
     if request.is_secure():
         return "https://%s" % (url, )
     else:
@@ -40,7 +40,7 @@ def enc_request(request, order_id):
         settings.DCAVENUE["MERCHANT_ID"], order_id, redirect_url,
     )
 
-    cca_request = "%s%s" % (
+    cca_request = "%s&%s" % (
         cca_request, "&".join(
             "%s=%s" % (k, v) for k, v in request.REQUEST.items()
         )
