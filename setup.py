@@ -1,8 +1,9 @@
+from ic import ICOpaqueData
 from setuptools import setup, find_packages
 
 try:
-    long_description = open('README.md', 'rt').read(),
-except Exception:
+    long_description = open('README.md', 'rt').read()
+except IOError:
     long_description = ""
 
 setup(
