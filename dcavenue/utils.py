@@ -1,10 +1,11 @@
-import uuid, zlib, commands
+import uuid
+import zlib
+import commands
 from pprint import pformat
-
-from importd import d
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 
 
 def generate_order_id():
@@ -86,7 +87,7 @@ def dec_response(request, response):
 
 
 def default_callback(request, data):
-    return d.HttpResponse(
+    return HttpResponse(
         """
             <html>
                 <body>

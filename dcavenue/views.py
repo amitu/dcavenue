@@ -2,6 +2,7 @@ from importd import d
 
 from django.core.urlresolvers import reverse, get_mod_func
 from django.conf import settings
+from django.http import HttpResponse
 
 from dcavenue.utils import generate_order_id, enc_request, dec_response
 from dcavenue import POST_URL
@@ -9,7 +10,7 @@ from dcavenue import POST_URL
 
 @d("/", name="dcavenue-index")
 def index(request):
-    return d.HttpResponse(
+    return HttpResponse(
         "<a href='%s'>start</a>" % (reverse("dcavenue-start"), ) +
         "?Amount=1&Currency=USD"
     )
@@ -23,7 +24,7 @@ def start(request):
     enc_request_data = enc_request(request, order_id=order_id)
     request.session["dcavenue_order_id"] = order_id
 
-    return d.HttpResponse(
+    return HttpResponse(
         """
             <html>
                 <head><title>Redirecting...</title></head>
