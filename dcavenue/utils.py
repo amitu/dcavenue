@@ -28,7 +28,12 @@ def checksum(redirect_url, amount, order_id):
         redirect_url, settings.DCAVENUE["WORKING_KEY"]
     )
 
-    return zlib.adler32(data, 1)
+    csum = zlib.adler32(data, 1)
+
+    if csum < 0:
+        csum += 2 ** 32
+
+    return csum
 
 
 def enc_request(request, order_id):
@@ -46,7 +51,7 @@ def enc_request(request, order_id):
         )
     )
 
-    cca_request = "%s&TxnType=A&actionID=TXN&Checksum=%s" % (
+    cca_request = "%s&Checksum=%s" % (
         cca_request, checksum(redirect_url, amount, order_id)
     )
 
