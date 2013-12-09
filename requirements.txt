@@ -1,0 +1,5 @@
+django-nose
+fabric
+coverage
+yolk
+importd
