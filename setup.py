@@ -7,7 +7,7 @@ except Exception:
 
 setup(
     name="dcavenue",
-    description="django helper integrating with ccavenue",
+    description="django app for integrating with ccavenue",
     long_description=long_description,
 
     version="0.1",
