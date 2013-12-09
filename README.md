@@ -1,6 +1,12 @@
 A simple django app to integrate with CCAvenue using "Advanced Site
 Integration for Real Time Success Failure".
 
+Since the app does not have any meaningful models or management command/template
+tags etc, there is no reason to add "dcavenue" to INSTALLED_APPS if you are
+using it with normal django app. If you are using it with importd project, it
+may be required to allow views.py to be loaded, so either import dcavenue.views
+from somewhere or put it in INSTALLED_APPS for simplicity.
+
 Add "dcavenue" to installed apps. If it is importd app, mount dcavenue
 on some URL, eg /dcavenue. If its a regular django app, url include
 dcacenue.urls file at appropriate place.

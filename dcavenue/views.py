@@ -8,7 +8,7 @@ from dcavenue import POST_URL
 
 
 @d("/", name="dcavenue-index")
-def idx(request):
+def index(request):
     return d.HttpResponse(
         "<a href='%s'>start</a>" % (reverse("dcavenue-start"), ) +
         "?Amount=1&Currency=USD"
