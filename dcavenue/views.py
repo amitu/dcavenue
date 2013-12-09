@@ -11,8 +11,9 @@ from dcavenue import POST_URL
 @d("/", name="dcavenue-index")
 def index(request):
     return HttpResponse(
-        "<a href='%s'>start</a>" % (reverse("dcavenue-start"), ) +
-        "?Amount=1&Currency=USD"
+        "<a href='%s'>start</a>" % (
+            reverse("dcavenue-start") + "?Amount=1&Currency=USD",
+        )
     )
 
 
