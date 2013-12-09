@@ -1,4 +1,3 @@
-from ic import ICOpaqueData
 from setuptools import setup, find_packages
 
 try:
