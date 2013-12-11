@@ -53,7 +53,7 @@ def callback(request):
     else:
         raise d.Http404("No order id in session")
 
-    enc_response = request.GET["encResponse"]
+    enc_response = request.REQUEST["encResponse"]
     if not enc_response:
         raise d.Http404("No encResponse")
 
