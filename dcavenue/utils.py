@@ -84,7 +84,13 @@ def verify_checksum(data):
         settings.DCAVENUE["MERCHANT_ID"], data["Order_Id"], data["Amount"],
         data["AuthDesc"], settings.DCAVENUE["WORKING_KEY"]
     )
-    return zlib.adler32(inp, 1) == data['Checksum']
+
+    csum = zlib.adler32(inp, 1)
+
+    if csum < 0:
+        csum += 2 ** 32
+
+    return csum == data['Checksum']
 
 
 def dec_response(request, response):
