@@ -80,11 +80,11 @@ def enc_request(request, order_id):
 #noinspection PyTypeChecker
 def verify_checksum(data):
     # "$MerchantId|$OrderId|$Amount|$AuthDesc|$WorkingKey";
-    data = "%s|%s|%s|%s|%s" % (
+    inp = "%s|%s|%s|%s|%s" % (
         settings.DCAVENUE["MERCHANT_ID"], data["Order_Id"], data["Amount"],
         data["AuthDesc"], settings.DCAVENUE["WORKING_KEY"]
     )
-    return zlib.adler32(data, 1) == data['Checksum']
+    return zlib.adler32(inp, 1) == data['Checksum']
 
 
 def dec_response(request, response):
