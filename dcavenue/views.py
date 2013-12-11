@@ -3,6 +3,7 @@ from importd import d
 from django.core.urlresolvers import reverse, get_mod_func
 from django.conf import settings
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from dcavenue.utils import generate_order_id, enc_request, dec_response
 from dcavenue import POST_URL
@@ -43,6 +44,7 @@ def start(request):
     )
 
 
+@csrf_exempt
 @d("/callback/", name="dcavenue-callback")
 def callback(request):
     order_id = request.session["dcavenue_order_id"]
