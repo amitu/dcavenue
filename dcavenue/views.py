@@ -56,11 +56,15 @@ def callback(request):
     if not data:
         raise Http404("Checksum Failed")
 
-    order_id = data["Order_Id"]
+    order_id = request.session["dcavenue_order_id"]
+
     if order_id:
         del request.session["dcavenue_order_id"]
     else:
-        raise d.Http404("No order id in session")
+        raise Http404("No order id in session")
+
+    if order_id != data["Order_Id"]:
+        raise Http404("Invalid orderid")
 
     cb_module, cb_method = get_mod_func(
         settings.DCAVENUE.get("CALLBACK", "dcavenue.utils.default_callback")
