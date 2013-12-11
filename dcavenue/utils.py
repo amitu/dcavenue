@@ -41,18 +41,32 @@ def enc_request(request, order_id):
 
     redirect_url = get_redirect_url(request)
 
-    cca_request = "Merchant_Id=%s&Order_Id=%s&Redirect_Url=%s" % (
-        settings.DCAVENUE["MERCHANT_ID"], order_id, redirect_url,
-    )
+    g = request.GET.get
 
-    cca_request = "%s&%s" % (
-        cca_request, "&".join(
-            "%s=%s" % (k, v) for k, v in request.REQUEST.items()
-        )
-    )
-
-    cca_request = "%s&Checksum=%s" % (
-        cca_request, checksum(redirect_url, amount, order_id)
+    cca_request = "&".join(
+        [
+            "Merchant_Id=%s" % settings.DCAVENUE["MERCHANT_ID"],
+            "Amount=%s" % amount,
+            "Order_Id=%s" % order_id,
+            "Redirect_Url=%s" % redirect_url,
+            "billing_cust_name=%s" % g("billing_cust_name", ""),
+            "billing_cust_address=%s" % g("billing_cust_address", ""),
+            "billing_cust_country=%s" % g("billing_cust_country", ""),
+            "billing_cust_state=%s" % g("billing_cust_state", ""),
+            "billing_cust_city=%s" % g("billing_cust_city", ""),
+            "billing_zip_code=%s" % g("billing_zip_code", ""),
+            "billing_cust_tel=%s" % g("billing_cust_tel", ""),
+            "billing_cust_email=%s" % g("billing_cust_email", ""),
+            "delivery_cust_name=%s" % g("delivery_cust_name", ""),
+            "delivery_cust_address=%s" % g("delivery_cust_address", ""),
+            "delivery_cust_country=%s" % g("delivery_cust_country", ""),
+            "delivery_cust_state=%s" % g("delivery_cust_state", ""),
+            "delivery_cust_city=%s" % g("delivery_cust_city", ""),
+            "delivery_zip_code=%s" % g("delivery_zip_code", ""),
+            "delivery_cust_tel=%s" % g("delivery_cust_tel", ""),
+            "billing_cust_notes=%s" % g("billing_cust_notes", ""),
+            "Checksum=%s" % checksum(redirect_url, amount, order_id)
+        ]
     )
 
     return commands.getoutput(
