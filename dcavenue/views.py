@@ -63,7 +63,7 @@ def callback(request):
         raise d.Http404("No order id in session")
 
     cb_module, cb_method = get_mod_func(
-        settings.DCAVENUE["CALLBACK", "dcavenue.utils.default_callback"]
+        settings.DCAVENUE.get("CALLBACK", "dcavenue.utils.default_callback")
     )
     cb = getattr(__import__(cb_module, {}, {}, ['']), cb_method)
 
