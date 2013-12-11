@@ -2,7 +2,7 @@ from importd import d
 
 from django.core.urlresolvers import reverse, get_mod_func
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 
 from dcavenue.utils import generate_order_id, enc_request, dec_response
@@ -54,7 +54,7 @@ def callback(request):
     data = dec_response(request, enc_response)
 
     if not data:
-        raise d.Http404("Checksum Failed")
+        raise Http404("Checksum Failed")
 
     order_id = data["dcavenue_order_id"]
     if order_id:
