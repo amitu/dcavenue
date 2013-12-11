@@ -47,12 +47,6 @@ def start(request):
 @csrf_exempt
 @d("/callback/", name="dcavenue-callback")
 def callback(request):
-    order_id = request.session["dcavenue_order_id"]
-    if order_id:
-        del request.session["dcavenue_order_id"]
-    else:
-        raise d.Http404("No order id in session")
-
     enc_response = request.REQUEST["encResponse"]
     if not enc_response:
         raise d.Http404("No encResponse")
@@ -61,6 +55,12 @@ def callback(request):
 
     if not data:
         raise d.Http404("Checksum Failed")
+
+    order_id = data["dcavenue_order_id"]
+    if order_id:
+        del request.session["dcavenue_order_id"]
+    else:
+        raise d.Http404("No order id in session")
 
     cb_module, cb_method = get_mod_func(
         settings.DCAVENUE["CALLBACK", "dcavenue.utils.default_callback"]
