@@ -56,7 +56,7 @@ def callback(request):
     if not data:
         raise Http404("Checksum Failed")
 
-    order_id = data["dcavenue_order_id"]
+    order_id = data["Order_Id"]
     if order_id:
         del request.session["dcavenue_order_id"]
     else:
