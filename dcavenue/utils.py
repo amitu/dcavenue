@@ -90,7 +90,7 @@ def verify_checksum(data):
     if csum < 0:
         csum += 2 ** 32
 
-    return csum == data['Checksum']
+    return str(csum) == data['Checksum']
 
 
 def dec_response(request, response):
